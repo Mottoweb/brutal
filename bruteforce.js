@@ -43,24 +43,27 @@ var parallelqueries = 2;
 //fuck json, this is pure arrays as god intended us pony coders to use
 //throw in the candle sizes here
 // var candleSizes = [5, 10, 15, 20, 25, 30 , 40 ,50, 60, 70, 80, 90, 100, 110, 120];
-var candleSizes = [20];
+var candleSizes = randomExt.integerArray(16, 120, 5);
 //list different history sizes here
 // var historySizes = [20, 30, 50, 100];
-var historySizes = [20];
+var historySizes = randomExt.integerArray(4, 120, 40);
 //ooo this looks fun - this is where you set up the trading pairs and back testing exchange data
 //you can load up as many sets as you like
 var tradingPairs = [
 	// ["poloniex","USDT","DASH"],
 	// ["poloniex","USDT","BCH"],
-	["poloniex","USDT","ETC"],
+	// ["poloniex","USDT","ETC"],
 	// ["poloniex","USDT","NXT"],
 	// ["poloniex","USDT","LTC"],
 	// ["poloniex","USDT","ETH"],
+	["poloniex","USDT","XMR"],
+	["poloniex","USDT","REP"],
+	["poloniex","USDT","STR"],
 ];
 //so this is the number of configs that will be generated with different strategy settings
 //if you multiply this by the number of candle sizes and history sizes and trading pairs you'll get the total number of backtests this sucker will run
 //Note: if you wanna test candle sizes, against the same config setup then just set this to 1. Cute right???
-var numberofruns = 1;
+var numberofruns = 5;
 
 let dirCont = fs.readdirSync( strategiesFolder );
 
@@ -167,8 +170,6 @@ async function hitApi(configs) {
         console.log(err)
     	});
 
-    	console.log(body)
-
     	let result = { profit: 0, metrics: false };
 
     	if (!body.performanceReport || !body.trades) {
@@ -178,19 +179,13 @@ async function hitApi(configs) {
 
       // These properties will be outputted every epoch, remove property if not needed
       const properties = ['balance', 'profit', 'sharpe', 'market', 'relativeProfit', 'yearlyProfit', 'relativeYearlyProfit', 'startPrice', 'endPrice', 'trades'];
-	  
       const report = body.performanceReport;
 
       if (report) {
-
         let picked = properties.reduce((o, k) => {
-
           o[k] = report[k];
-
           return o;
-
         }, {});
-
         result = { strat: data.tradingAdvisor.method, startdate: data.backtest.daterange.from, todate: data.backtest.daterange.to, profit: report.profit, sharpe: report.sharpe, metrics: picked };
       }
 
