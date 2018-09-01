@@ -1,5 +1,5 @@
 {
-  "name": "Gekko Warez Bruteforce Backtester",
+  "name": "Modified Gekko Warez Bruteforce Backtester",
   "version": "1.0.0",
   "description": "A swiss army nodejs brute force backtester for Gekko trading bot. Saves time so you can spend more time looking good. ",
   "main": "bruteforce.js",
@@ -12,9 +12,9 @@
   },
   "keywords": [
     "zuki",
-	"gekko",
-	"backtester",
-	"brute force"
+    "gekko",
+    "backtester",
+    "brute force"
   ],
   "author": "gekkowarez",
   "license": "MIT",
@@ -23,16 +23,16 @@
   },
   "homepage": "https://github.com/gekkowarez/bruteforce#readme",
   "dependencies": {
-    "async": "^2.6.0",
-    "commander": "^2.11.0",
-    "flat": "^4.0.0",
-    "fs-extra": "^4.0.2",
-    "nodemailer": "^4.4.1",
+    "async": "^2.6.1",
+    "commander": "^2.17.1",
+    "flat": "^4.1.0",
+    "fs-extra": "^7.0.0",
+    "humanize": "0.0.9",
+    "nodemailer": "^4.6.8",
     "random-ext": "^2.6.1",
-    "request": "^2.83.0",
+    "replaceall": "^0.1.6",
+    "request": "^2.88.0",
     "request-promise": "^4.2.2",
-	"humanize": "^0.0.9",
-	"replaceall": "^0.1.6",
-	"toml":"^2.3.3"
+    "toml": "^2.3.3"
   }
 }
