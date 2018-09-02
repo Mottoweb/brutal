@@ -65,7 +65,7 @@ var tradingPairs = [
 //Note: if you wanna test candle sizes, against the same config setup then just set this to 1. Cute right???
 var numberofruns = 5;
 
-let dirCont = fs.readdirSync( strategiesFolder );
+// let dirCont = fs.readdirSync( strategiesFolder );
 
 //oh wait, there's more....
 
