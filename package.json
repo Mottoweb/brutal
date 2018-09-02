@@ -1,27 +1,26 @@
 {
-  "name": "Modified Gekko Warez Bruteforce Backtester",
-  "version": "1.0.0",
-  "description": "A swiss army nodejs brute force backtester for Gekko trading bot. Saves time so you can spend more time looking good. ",
+  "name": "brutal",
+  "version": "0.0.1",
+  "description": "Modified gekko bruteforcer",
   "main": "bruteforce.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gekkowarez/bruteforce.git"
+    "url": "git+https://github.com/Mottoweb/brutal.git"
   },
   "keywords": [
-    "zuki",
     "gekko",
-    "backtester",
-    "brute force"
+    "bot",
+    "backtest"
   ],
-  "author": "gekkowarez",
+  "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gekkowarez/bruteforce/issues"
+    "url": "https://github.com/Mottoweb/brutal/issues"
   },
-  "homepage": "https://github.com/gekkowarez/bruteforce#readme",
+  "homepage": "https://github.com/Mottoweb/brutal#readme",
   "dependencies": {
     "async": "^2.6.1",
     "commander": "^2.17.1",
