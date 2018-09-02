@@ -189,10 +189,10 @@ async function hitApi(configs) {
         result = { strat: data.tradingAdvisor.method, startdate: data.backtest.daterange.from, todate: data.backtest.daterange.to, profit: report.profit, sharpe: report.sharpe, metrics: picked };
       }
 
-      positiveProfitAndSharpe = report.profit > 0 || sharpe > 0
+      profitable = report.profit > 0
 
 //now we write the backtest results to file:
-		if(writecsv===true && report && positiveProfitAndSharpe) {  
+		if(writecsv===true && report && profitable) {  
 			let runDate = humanize.date('d-m-Y');
 			let runTime = humanize.date('H:i:s');		
 			var sharpe = 0;
