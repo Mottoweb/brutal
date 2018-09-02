@@ -50,12 +50,12 @@ var historySizes = randomExt.integerArray(4, 120, 40);
 //ooo this looks fun - this is where you set up the trading pairs and back testing exchange data
 //you can load up as many sets as you like
 var tradingPairs = [
-	// ["poloniex","USDT","DASH"],
-	// ["poloniex","USDT","BCH"],
-	// ["poloniex","USDT","ETC"],
-	// ["poloniex","USDT","NXT"],
-	// ["poloniex","USDT","LTC"],
-	// ["poloniex","USDT","ETH"],
+	["poloniex","USDT","DASH"],
+	["poloniex","USDT","BCH"],
+	["poloniex","USDT","ETC"],
+	["poloniex","USDT","NXT"],
+	["poloniex","USDT","LTC"],
+	["poloniex","USDT","ETH"],
 	["poloniex","USDT","XMR"],
 	["poloniex","USDT","REP"],
 	["poloniex","USDT","STR"],
