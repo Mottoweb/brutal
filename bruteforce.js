@@ -127,7 +127,7 @@ for (var a = 0, len4 = tradingPairs.length; a < len4; a++) {
 						  writeToDisk:false,
 						  data:{  
 						     stratUpdates:false,
-						     roundtrips:false,
+						     roundtrips:true,
 						     stratCandles:true,
 						     stratCandleProps:[  
 						        'open'
@@ -192,7 +192,7 @@ async function hitApi(configs) {
       positiveProfitAndSharpe = report.profit > 0 || sharpe > 0
 
 //now we write the backtest results to file:
-		if(writecsv===true && report) {  
+		if(writecsv===true && report && positiveProfitAndSharpe) {  
 			let runDate = humanize.date('d-m-Y');
 			let runTime = humanize.date('H:i:s');		
 			var sharpe = 0;
@@ -204,12 +204,12 @@ async function hitApi(configs) {
 			let asset = data.watch.asset;
 			let currencyPair = currency + asset;
 			let method = data.tradingAdvisor.method
-			// let { mostProfitabe, biggestLost, winningPercentage, profitFactor } = getMoreMetrics(body.roundtrips)
-			console.log(getMoreMetrics(body.roundtrips))
+			let { mostProfitabe, biggestLost, winningPercentage, profitFactor } = getMoreMetrics(body.roundtrips)
+			// console.log(getMoreMetrics(body.roundtrips))
 			let configCsvTmp1 = JSON.stringify(data[data.tradingAdvisor.method]);
 			let configCsv = replaceall(",", "|", configCsvTmp1)
-			headertxt = "Strategy,Market performance(%),Strat performance (%),Profit,Run date, Run time, Start date, End date,Currency pair, Candle size, History size,Currency, Asset, Timespan,Yearly profit, Yearly profit (%), Start price, End price, Trades, Start balance, Sharpe, Alpha, Config\n";
-			outtxt = data.tradingAdvisor.method+","+ report.market.toFixed(2)+","+ report.relativeProfit.toFixed(2)+","+ report.profit.toFixed(2)+","+runDate+","+runTime+","+ report.startTime+","+ report.endTime+","+ currencyPair+","+ data.tradingAdvisor.candleSize+","+ data.tradingAdvisor.historySize+","+ currency+","+ asset+","+ report.timespan+","+ report.yearlyProfit.toFixed(2)+","+ report.relativeYearlyProfit.toFixed(2)+","+ report.startPrice.toFixed(2)+","+ report.endPrice.toFixed(2)+","+ report.trades+","+ report.startBalance.toFixed(2)+","+ sharpe.toFixed(2)+","+ report.alpha.toFixed(2)+","+ configCsv+"\n";
+			headertxt = "Strategy,Market performance(%),Strat performance (%),Profit, Winning %, PF, Most Profitable, Biggest Loss,  Run date, Run time, Start date, End date,Currency pair, Candle size, History size,Currency, Asset, Timespan,Yearly profit, Yearly profit (%), Start price, End price, Trades, Start balance, Sharpe, Alpha, Config\n";
+			outtxt = data.tradingAdvisor.method+","+ report.market.toFixed(2)+","+ report.relativeProfit.toFixed(2)+","+ report.profit.toFixed(2)+","+ winningPercentage.toFixed(2) +"," +profitFactor.toFixed(2)+ "," +mostProfitabe.toFixed(2)+ "," +biggestLost.toFixed(2)+ "," +runDate+","+runTime+","+ report.startTime+","+ report.endTime+","+ currencyPair+","+ data.tradingAdvisor.candleSize+","+ data.tradingAdvisor.historySize+","+ currency+","+ asset+","+ report.timespan+","+ report.yearlyProfit.toFixed(2)+","+ report.relativeYearlyProfit.toFixed(2)+","+ report.startPrice.toFixed(2)+","+ report.endPrice.toFixed(2)+","+ report.trades+","+ report.startBalance.toFixed(2)+","+ sharpe.toFixed(2)+","+ report.alpha.toFixed(2)+","+ configCsv+"\n";
 
 			const resultCsv = `${resultDir}/${method}.${exchange}.csv`
 
@@ -247,11 +247,11 @@ const getMoreMetrics = (roundtrips) => {
 		if (pnl < biggestLost) biggestLost = pnl
 		if (pnl > 0) grossProfit += pnl
 		if (pnl < 0) grossLoss += pnl
-		if (profit > 0) win++
+		if (profit > 0) wins++
 	})
 
 	profitFactor = grossProfit/grossLoss
-	winningPercentage = 100 * win / roundtrips.length
+	winningPercentage = 100 * wins / roundtrips.length
 
 	return { mostProfitabe, biggestLost, winningPercentage, profitFactor }
 
