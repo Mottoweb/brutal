@@ -42,11 +42,11 @@ var parallelqueries = 2;
 //setup params for backtesting
 //fuck json, this is pure arrays as god intended us pony coders to use
 //throw in the candle sizes here
-// var candleSizes = [5, 10, 15, 20, 25, 30 , 40 ,50, 60, 70, 80, 90, 100, 110, 120];
-var candleSizes = randomExt.integerArray(16, 120, 5);
+var candleSizes = [5, 10, 15, 20, 25, 30 , 40 ,50, 60, 70, 80, 90, 100, 110, 120];
+// var candleSizes = randomExt.integerArray(16, 120, 5);
 //list different history sizes here
-// var historySizes = [20, 30, 50, 100];
-var historySizes = randomExt.integerArray(4, 120, 40);
+var historySizes = [20, 30, 50, 100];
+// var historySizes = randomExt.integerArray(4, 120, 40);
 //ooo this looks fun - this is where you set up the trading pairs and back testing exchange data
 //you can load up as many sets as you like
 var tradingPairs = [
