@@ -52,7 +52,7 @@ async function hitApi(configs) {
         result = { strat: data.tradingAdvisor.method, startdate: data.backtest.daterange.from, todate: data.backtest.daterange.to, profit: report.profit, sharpe: report.sharpe, metrics: picked };
       }
 
-      profitable = report.profit > 0
+      profitable = report.profit > 0 && report.profit > report.market
 
 //now we write the backtest results to file:
 		if(writecsv===true && report && profitable) {  
