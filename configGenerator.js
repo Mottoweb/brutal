@@ -8,10 +8,10 @@ function generateConfigs() {
   var candleSizes = [5, 10, 15, 20, 25, 30 , 40 ,50, 60, 70, 80, 90, 100, 110, 120];
   var historySizes = [20, 30, 50, 100];
   var tradingPairs = [
-    // ["poloniex","USDT","DASH"],
-    // ["poloniex","USDT","BCH"],
-    // ["poloniex","USDT","ETC"],
-    // ["poloniex","USDT","NXT"],
+    ["poloniex","USDT","DASH"],
+    ["poloniex","USDT","BCH"],
+    ["poloniex","USDT","ETC"],
+    ["poloniex","USDT","NXT"],
     ["poloniex","USDT","LTC"],
     ["poloniex","USDT","ETH"],
     ["poloniex","USDT","XMR"],

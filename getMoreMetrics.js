@@ -16,7 +16,7 @@ const getMoreMetrics = (roundtrips) => {
     if (profit > 0) wins++
   })
 
-  profitFactor = grossProfit/grossLoss
+  profitFactor = Math.abs(grossProfit/grossLoss)
   winningPercentage = 100 * wins / roundtrips.length
 
   return { mostProfitabe, biggestLost, winningPercentage, profitFactor, grossProfit, grossLoss }

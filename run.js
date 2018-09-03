@@ -69,12 +69,13 @@ async function hitApi(configs) {
 			let method = data.tradingAdvisor.method
 			let { mostProfitabe, biggestLost, winningPercentage, profitFactor, grossProfit, grossLoss } = getMoreMetrics(body.roundtrips)
 			// console.log(getMoreMetrics(body.roundtrips))
-			let configCsvTmp1 = JSON.stringify(data[data.tradingAdvisor.method]);
+      let configCsvTmp1 = JSON.stringify(data[data.tradingAdvisor.method]);
+			let fullConfig = JSON.stringify(data);
 			let configCsv = replaceall(",", "|", configCsvTmp1)
-			headertxt = "Strategy,Market perf(%),Strat perf(%),Profit, Winning %, PF, Most Profitable, Biggest Loss, GP, GL,  Run date, Run time, Start date, End date,Currency pair, Candle size, History size,Currency, Asset, Timespan,Yearly profit, Yearly profit (%), Start price, End price, Trades, Start balance, Sharpe, Alpha, Config\n";
-			outtxt = data.tradingAdvisor.method+","+ report.market.toFixed(2)+","+ report.relativeProfit.toFixed(2)+","+ report.profit.toFixed(2)+","+ winningPercentage.toFixed(2) +"," +profitFactor.toFixed(2)+ "," +mostProfitabe.toFixed(2)+ "," +biggestLost.toFixed(2)+ "," +grossProfit.toFixed(2)+ ","+grossLoss.toFixed(2)+ "," +runDate+","+runTime+","+ report.startTime+","+ report.endTime+","+ currencyPair+","+ data.tradingAdvisor.candleSize+","+ data.tradingAdvisor.historySize+","+ currency+","+ asset+","+ report.timespan+","+ report.yearlyProfit.toFixed(2)+","+ report.relativeYearlyProfit.toFixed(2)+","+ report.startPrice.toFixed(2)+","+ report.endPrice.toFixed(2)+","+ report.trades+","+ report.startBalance.toFixed(2)+","+ sharpe.toFixed(2)+","+ report.alpha.toFixed(2)+","+ configCsv+"\n";
+			headertxt = "Strategy,Market perf(%),Strat perf(%),Profit, Winning %, PF, Most Profitable, Biggest Loss, GP, GL,  Run date, Run time, Start date, End date,Currency pair, Candle size, History size,Currency, Asset, Timespan,Yearly profit, Yearly profit (%), Start price, End price, Trades, Start balance, Sharpe, Alpha, Config, Full Config\n";
+			outtxt = data.tradingAdvisor.method+","+ report.market.toFixed(2)+","+ report.relativeProfit.toFixed(2)+","+ report.profit.toFixed(2)+","+ winningPercentage.toFixed(2) +"," +profitFactor.toFixed(2)+ "," +mostProfitabe.toFixed(2)+ "," +biggestLost.toFixed(2)+ "," +grossProfit.toFixed(2)+ ","+grossLoss.toFixed(2)+ "," +runDate+","+runTime+","+ report.startTime+","+ report.endTime+","+ currencyPair+","+ data.tradingAdvisor.candleSize+","+ data.tradingAdvisor.historySize+","+ currency+","+ asset+","+ report.timespan+","+ report.yearlyProfit.toFixed(2)+","+ report.relativeYearlyProfit.toFixed(2)+","+ report.startPrice.toFixed(2)+","+ report.endPrice.toFixed(2)+","+ report.trades+","+ report.startBalance.toFixed(2)+","+ sharpe.toFixed(2)+","+ report.alpha.toFixed(2)+","+ configCsv+ "," +fullConfig+ "\n";
 
-			const resultCsv = `${resultDir}/${method}.${exchange}.csv`
+			const resultCsv = `${resultDir}/${method}.${exchange}.${currency}.${asset}.csv`
 
 			if (fs.existsSync(resultCsv)){
 				fs.appendFileSync(resultCsv, outtxt, encoding = 'utf8');		
