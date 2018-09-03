@@ -5,7 +5,7 @@ const humanize = require('humanize');
 const replaceall = require("replaceall");
 
 const queue = require('./queue')
-const generateConfigs = require('./generateConfigs')
+const generateConfigs = require('./configGenerator')
 const getMoreMetrics = require('./getMoreMetrics')
 
 const writecsv = true;
