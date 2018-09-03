@@ -7,13 +7,10 @@ const fs = require('fs-extra');
 const flat = require('flat');
 const util = require('util');
 const humanize = require('humanize');
-var replaceall = require("replaceall");
+const replaceall = require("replaceall");
 
 //setup variables
-var viableStrategies = [];
-var stratKey = "";
 var configs =[];
-var count=0;
 //configuration elements
 //starting with paths and the all important gekko config
 //where are your gekko strategies?
@@ -50,15 +47,18 @@ var historySizes = [20, 30, 50, 100];
 //ooo this looks fun - this is where you set up the trading pairs and back testing exchange data
 //you can load up as many sets as you like
 var tradingPairs = [
-	["poloniex","USDT","DASH"],
-	["poloniex","USDT","BCH"],
-	["poloniex","USDT","ETC"],
-	["poloniex","USDT","NXT"],
+	// ["poloniex","USDT","DASH"],
+	// ["poloniex","USDT","BCH"],
+	// ["poloniex","USDT","ETC"],
+	// ["poloniex","USDT","NXT"],
 	["poloniex","USDT","LTC"],
 	["poloniex","USDT","ETH"],
 	["poloniex","USDT","XMR"],
 	["poloniex","USDT","REP"],
 	["poloniex","USDT","STR"],
+	["poloniex","ETH","BCH"],
+	["poloniex","ETH","ETC"],
+	["poloniex","ETH","CVC"],
 ];
 //so this is the number of configs that will be generated with different strategy settings
 //if you multiply this by the number of candle sizes and history sizes and trading pairs you'll get the total number of backtests this sucker will run
@@ -73,10 +73,7 @@ var numberofruns = 5;
 //make sure the strategy has a config entry in the config below
 let strategies = ["StochRSI"];
 
-
-
 for (var a = 0, len4 = tradingPairs.length; a < len4; a++) {
-
 	for (var j = 0, len1 = candleSizes.length; j < len1; j++) {
 		for (var k = 0, len2 = historySizes.length; k < len2; k++) {	
 	//check which strategies have equivalent config entries for in the config 
@@ -153,7 +150,6 @@ for (var a = 0, len4 = tradingPairs.length; a < len4; a++) {
 //run the backtests against all the stored configs. 
 hitApi(configs);
 
-
 //this might look familiar...that's cos it's ripped from Gekkoga <3
 async function hitApi(configs) {
   const results = await queue(configs, parallelqueries, async (data) => {
@@ -199,17 +195,17 @@ async function hitApi(configs) {
 			if(report.sharpe){
 				sharpe = report.sharpe;
 			}
-			let exchange = data.watch.exchange;
+			let exchange = data.watch.exchange; 
 			let currency = data.watch.currency;
 			let asset = data.watch.asset;
 			let currencyPair = currency + asset;
 			let method = data.tradingAdvisor.method
-			let { mostProfitabe, biggestLost, winningPercentage, profitFactor } = getMoreMetrics(body.roundtrips)
+			let { mostProfitabe, biggestLost, winningPercentage, profitFactor, grossProfit, grossLoss } = getMoreMetrics(body.roundtrips)
 			// console.log(getMoreMetrics(body.roundtrips))
 			let configCsvTmp1 = JSON.stringify(data[data.tradingAdvisor.method]);
 			let configCsv = replaceall(",", "|", configCsvTmp1)
-			headertxt = "Strategy,Market performance(%),Strat performance (%),Profit, Winning %, PF, Most Profitable, Biggest Loss,  Run date, Run time, Start date, End date,Currency pair, Candle size, History size,Currency, Asset, Timespan,Yearly profit, Yearly profit (%), Start price, End price, Trades, Start balance, Sharpe, Alpha, Config\n";
-			outtxt = data.tradingAdvisor.method+","+ report.market.toFixed(2)+","+ report.relativeProfit.toFixed(2)+","+ report.profit.toFixed(2)+","+ winningPercentage.toFixed(2) +"," +profitFactor.toFixed(2)+ "," +mostProfitabe.toFixed(2)+ "," +biggestLost.toFixed(2)+ "," +runDate+","+runTime+","+ report.startTime+","+ report.endTime+","+ currencyPair+","+ data.tradingAdvisor.candleSize+","+ data.tradingAdvisor.historySize+","+ currency+","+ asset+","+ report.timespan+","+ report.yearlyProfit.toFixed(2)+","+ report.relativeYearlyProfit.toFixed(2)+","+ report.startPrice.toFixed(2)+","+ report.endPrice.toFixed(2)+","+ report.trades+","+ report.startBalance.toFixed(2)+","+ sharpe.toFixed(2)+","+ report.alpha.toFixed(2)+","+ configCsv+"\n";
+			headertxt = "Strategy,Market perf(%),Strat perf(%),Profit, Winning %, PF, Most Profitable, Biggest Loss, GP, GL,  Run date, Run time, Start date, End date,Currency pair, Candle size, History size,Currency, Asset, Timespan,Yearly profit, Yearly profit (%), Start price, End price, Trades, Start balance, Sharpe, Alpha, Config\n";
+			outtxt = data.tradingAdvisor.method+","+ report.market.toFixed(2)+","+ report.relativeProfit.toFixed(2)+","+ report.profit.toFixed(2)+","+ winningPercentage.toFixed(2) +"," +profitFactor.toFixed(2)+ "," +mostProfitabe.toFixed(2)+ "," +biggestLost.toFixed(2)+ "," +grossProfit.toFixed(2)+ ","+grossLoss.toFixed(2)+ "," +runDate+","+runTime+","+ report.startTime+","+ report.endTime+","+ currencyPair+","+ data.tradingAdvisor.candleSize+","+ data.tradingAdvisor.historySize+","+ currency+","+ asset+","+ report.timespan+","+ report.yearlyProfit.toFixed(2)+","+ report.relativeYearlyProfit.toFixed(2)+","+ report.startPrice.toFixed(2)+","+ report.endPrice.toFixed(2)+","+ report.trades+","+ report.startBalance.toFixed(2)+","+ sharpe.toFixed(2)+","+ report.alpha.toFixed(2)+","+ configCsv+"\n";
 
 			const resultCsv = `${resultDir}/${method}.${exchange}.csv`
 
@@ -253,7 +249,7 @@ const getMoreMetrics = (roundtrips) => {
 	profitFactor = grossProfit/grossLoss
 	winningPercentage = 100 * wins / roundtrips.length
 
-	return { mostProfitabe, biggestLost, winningPercentage, profitFactor }
+	return { mostProfitabe, biggestLost, winningPercentage, profitFactor, grossProfit, grossLoss }
 
 }
 
