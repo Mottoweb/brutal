@@ -13,6 +13,7 @@ const resultDir = `${__dirname}/results`
 const parallelqueries = 2
 
 const configs = generateConfigs()
+const apiUrl = process.env.URL || 'http://localhost:3000'
 
 hitApi(configs)
 
