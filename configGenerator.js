@@ -20,6 +20,9 @@ function generateConfigs() {
     ["poloniex","ETH","BCH"],
     ["poloniex","ETH","ETC"],
     ["poloniex","ETH","CVC"],
+    ["poloniex","BTC","XMR"],
+    ["poloniex","BTC","DOGE"],
+    ["poloniex","BTC","ETH"],
   ];
 
   var numberofruns = 5;
