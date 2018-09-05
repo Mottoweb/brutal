@@ -27,7 +27,7 @@ function generateConfigs() {
 
   var numberofruns = 5;
 
-  let strategies = ["StochRSI"];
+  let strategies = ["MACD"];
 
   for (var a = 0, len4 = tradingPairs.length; a < len4; a++) {
     for (var j = 0, len1 = candleSizes.length; j < len1; j++) {
@@ -63,12 +63,14 @@ function generateConfigs() {
                 candleSize: config.tradingAdvisor.candleSize ,
                 historySize: config.tradingAdvisor.historySize,  
               },
-              StochRSI:{  
-                interval: randomExt.integer(5,1),
+              MACD:{  
+                short: randomExt.integer(20,1),
+                long: randomExt.integer(50,21),
+                signal: randomExt.integer(30,10),
                 thresholds: {  
-                   low: randomExt.integer(30,10),
-                   high: randomExt.integer(90,70),
-                   persistence: randomExt.integer(4,2),
+                   down: randomExt.integer(-0.5,0.01),
+                   up: randomExt.integer(0.5,0.01),
+                   persistence: randomExt.integer(9,1),
                 }
               },
               backtest: {
