@@ -29,10 +29,13 @@
     "fs-extra": "^7.0.0",
     "humanize": "0.0.9",
     "nodemailer": "^4.6.8",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "random-ext": "^2.6.1",
     "replaceall": "^0.1.6",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
+    "sequelize": "^4.38.0",
     "toml": "^2.3.3"
   },
   "devDependencies": {
