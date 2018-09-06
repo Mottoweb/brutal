@@ -8,7 +8,7 @@ const saveToCsv = require('./writers/csv');
 
 const writecsv = true;
 const writeToDB = true;
-const parallelqueries = 2;
+const parallelqueries = 1;
 
 const generatedConfigs = generateConfigs();
 const apiUrl = process.env.URL || 'http://localhost:3000';
