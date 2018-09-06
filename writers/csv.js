@@ -2,7 +2,7 @@ const replaceall = require('replaceall');
 const fs = require('fs-extra');
 
 const saveToCsv = (data) => {
-  const resultDir = `${__dirname}/results`;
+  const resultDir = '../results';
   const {
     runDate,
     runTime,
