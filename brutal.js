@@ -76,10 +76,12 @@ async function hitApi(configs) {
     }
 
     if (writeToDB === true && report && profitable) {
-      const dbresult = await saveToDB(result).catch((err) => {
-        console.error(err);
-      });
-      console.log(dbresult);
+      try {
+        const dbresult = await saveToDB(result);
+        console.log(dbresult);
+      } catch (e) {
+        console.error(e);
+      }
     }
   })
     .catch((err) => {

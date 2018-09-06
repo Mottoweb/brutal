@@ -6,9 +6,6 @@ const {
 const sequelize = new Sequelize(dbname, dbusername, dbpass, {
   host: dbhost,
   dialect: 'postgres',
-  dialectOptions: {
-    ssl: 'Amazon RDS',
-  },
   pool: {
     max: 10,
     min: 0,
@@ -54,9 +51,8 @@ const Results = sequelize.define('results', {
   alpha: FLOAT,
 });
 
-const writeResultToDB = async (data) => {
-  await sequelize.sync();
-  return Results.create(data);
+const writeResultToDB = (data) => {
+  Results.sync({ force: true }).then(() => Results.create(data));
 };
 
 module.exports = writeResultToDB;
