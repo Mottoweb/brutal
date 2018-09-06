@@ -5,6 +5,7 @@ const queue = require('./queue');
 const generateConfigs = require('./configGenerator');
 const getMoreMetrics = require('./getMoreMetrics');
 const saveToCsv = require('./writers/csv');
+const saveToDB = require('./writers/db');
 
 const writecsv = true;
 const writeToDB = true;
@@ -74,7 +75,9 @@ async function hitApi(configs) {
       saveToCsv(result);
     }
 
-    return result;
+    if (writeToDB === true && report && profitable) {
+      saveToDB(result);
+    }
   })
     .catch((err) => {
       throw err;
