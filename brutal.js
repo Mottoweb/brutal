@@ -53,7 +53,7 @@ async function hitApi(configs) {
         currencyPair: currency + asset,
         method: data.tradingAdvisor.method,
         fullConfig: data,
-        stratConfig: data[data.tradingAdvisor.method]),
+        stratConfig: data[data.tradingAdvisor.method],
         merket: report.market.toFixed(2),
         relativeProfit: report.relativeProfit.toFixed(2),
         profit: report.profit.toFixed(2),
