@@ -5,7 +5,10 @@ const queue = require('./queue');
 const generateConfigs = require('./configGenerator');
 const getMoreMetrics = require('./getMoreMetrics');
 const saveToCsv = require('./writers/csv');
-const saveToDB = require('./writers/db');
+const {
+  handlers,
+  db,
+} = require('./writers/db');
 
 const writecsv = true;
 const writeToDB = true;
@@ -50,7 +53,7 @@ async function hitApi(configs) {
         method: data.tradingAdvisor.method,
         fullConfig: data,
         stratConfig: data[data.tradingAdvisor.method],
-        merket: report.market.toFixed(2),
+        market: report.market.toFixed(2),
         relativeProfit: report.relativeProfit.toFixed(2),
         profit: report.profit.toFixed(2),
         startTime: report.startTime,
@@ -75,10 +78,11 @@ async function hitApi(configs) {
       saveToCsv(result);
     }
 
-    if (writeToDB === true && report && profitable) {
+    if (writeToDB === true && report) {
       try {
-        const dbresult = await saveToDB(result);
-        console.log(dbresult);
+        console.log('Inserting to DB');
+        await handlers.saveResult(result);
+        console.log('Finished');
       } catch (e) {
         console.error(e);
       }
@@ -90,4 +94,6 @@ async function hitApi(configs) {
   return results;
 }
 
-hitApi(generatedConfigs);
+db.sync().then(() => {
+  hitApi(generatedConfigs);
+}).catch(e => console.error(e));

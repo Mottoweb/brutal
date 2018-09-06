@@ -18,41 +18,44 @@ const sequelize = new Sequelize(dbname, dbusername, dbpass, {
 const { STRING, FLOAT, INTEGER } = Sequelize;
 
 const Results = sequelize.define('results', {
+  method: STRING,
+  market: FLOAT,
+  relativeProfit: FLOAT,
+  profit: FLOAT,
+  winningPercentage: FLOAT,
+  profitFactor: FLOAT,
+  mostProfitabe: FLOAT,
+  biggestLost: FLOAT,
+  grossProfit: FLOAT,
+  grossLoss: FLOAT,
+  sharpe: FLOAT,
+  alpha: FLOAT,
+  candleSize: INTEGER,
+  historySize: INTEGER,
   runDate: STRING,
   runTime: STRING,
-  sharpe: FLOAT,
+  yearlyProfit: FLOAT,
+  relativeYearlyProfit: FLOAT,
   exchange: STRING,
   currency: STRING,
   asset: STRING,
   currencyPair: STRING,
-  method: STRING,
-  fullConfig: Sequelize.JSON,
-  stratConfig: Sequelize.JSON,
-  mostProfitabe: FLOAT,
-  biggestLost: FLOAT,
-  winningPercentage: FLOAT,
-  profitFactor: FLOAT,
-  grossProfit: FLOAT,
-  grossLoss: FLOAT,
-  market: FLOAT,
-  relativeProfit: FLOAT,
-  profit: FLOAT,
+  trades: INTEGER,
   startTime: STRING,
   endTime: STRING,
-  candleSize: INTEGER,
-  historySize: INTEGER,
   timespan: STRING,
-  yearlyProfit: FLOAT,
-  relativeYearlyProfit: FLOAT,
   startPrice: FLOAT,
   endPrice: FLOAT,
-  trades: INTEGER,
   startBalance: FLOAT,
-  alpha: FLOAT,
+  fullConfig: Sequelize.JSON,
+  stratConfig: Sequelize.JSON,
 });
 
-const writeResultToDB = (data) => {
-  Results.sync({ force: true }).then(() => Results.create(data));
-};
+const saveResult = async data => Results.create(data);
 
-module.exports = writeResultToDB;
+module.exports = {
+  handlers: {
+    saveResult,
+  },
+  db: sequelize,
+};
