@@ -3,18 +3,18 @@ const {
   dbname, dbusername, dbpass, dbhost,
 } = require('../dbconf');
 
-
 const sequelize = new Sequelize(dbname, dbusername, dbpass, {
   host: dbhost,
   dialect: 'postgres',
-
+  dialectOptions: {
+    ssl: 'Amazon RDS',
+  },
   pool: {
     max: 10,
     min: 0,
     acquire: 30000,
     idle: 10000,
   },
-
   operatorsAliases: false,
 });
 
@@ -54,13 +54,9 @@ const Results = sequelize.define('results', {
   alpha: FLOAT,
 });
 
-const writeResultToDB = (data) => {
-  sequelize.sync()
-    .then(() => Results.create(data))
-    .then((result) => {
-      console.log('Created DB Entry');
-      console.log(result.toJSON());
-    });
+const writeResultToDB = async (data) => {
+  await sequelize.sync();
+  return Results.create(data);
 };
 
 module.exports = writeResultToDB;

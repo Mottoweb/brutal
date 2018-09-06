@@ -76,7 +76,9 @@ async function hitApi(configs) {
     }
 
     if (writeToDB === true && report && profitable) {
-      saveToDB(result);
+      await saveToDB(result).catch((err) => {
+        console.error(err);
+      });
     }
   })
     .catch((err) => {
