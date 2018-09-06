@@ -1,44 +1,39 @@
-const async = require('async')
-const rp = require('request-promise')
-const fs = require('fs-extra')
-const humanize = require('humanize')
-const replaceall = require("replaceall")
+const rp = require('request-promise');
+const humanize = require('humanize');
 
-const queue = require('./queue')
-const generateConfigs = require('./configGenerator')
-const getMoreMetrics = require('./getMoreMetrics')
-const saveToCsv = require('writers/saveToCsv')
+const queue = require('./queue');
+const generateConfigs = require('./configGenerator');
+const getMoreMetrics = require('./getMoreMetrics');
+const saveToCsv = require('./writers/csv');
 
-const writecsv = true
-const writeToDB = true
-const parallelqueries = 2
+const writecsv = true;
+const writeToDB = true;
+const parallelqueries = 2;
 
-const configs = generateConfigs()
-const apiUrl = process.env.URL || 'http://localhost:3000'
+const generatedConfigs = generateConfigs();
+const apiUrl = process.env.URL || 'http://localhost:3000';
 
-hitApi(configs)
-
-//this might look familiar...that's cos it's ripped from Gekkoga <3
+// this might look familiar...that's cos it's ripped from Gekkoga <3
 async function hitApi(configs) {
   const results = await queue(configs, parallelqueries, async (data) => {
-		console.log("Running strategy - "+data.tradingAdvisor.method +" on "+data.tradingAdvisor.candleSize +" minute(s) candle size on "+ data.watch.exchange +" for "+ data.watch.currency + data.watch.asset);
+  	console.log("Running strategy - "+data.tradingAdvisor.method +" on "+data.tradingAdvisor.candleSize +" minute(s) candle size on "+ data.watch.exchange +" for "+ data.watch.currency + data.watch.asset);
     const body = await rp.post({
       url: `${apiUrl}/api/backtest`,
       json: true,
       body: data,
       headers: { 'Content-Type': 'application/json' },
-      timeout: 1200000
+      timeout: 1200000,
     }).catch((err) => {
-      console.log('Fetching failed')
-      console.log(err)
-  	});
+      console.log('Fetching failed');
+      console.log(err);
+    });
 
-  	let result = { profit: 0, metrics: false };
+    let result = { profit: 0, metrics: false };
 
-  	if (!body.performanceReport || !body.trades) {
-  		console.log('No valid backtest data returned, continiuouning :P')
-  		return null
-  	}
+    if (!body.performanceReport || !body.trades) {
+      console.log('No valid backtest data returned, continiuouning :P');
+      return null;
+    }
 
     const report = body.performanceReport;
 
@@ -50,7 +45,7 @@ async function hitApi(configs) {
         exchange: data.watch.exchange,
         currency: data.watch.currency,
         asset: data.watch.asset,
-        currencyPair: currency + asset,
+        currencyPair: data.watch.currency + data.watch.asset,
         method: data.tradingAdvisor.method,
         fullConfig: data,
         stratConfig: data[data.tradingAdvisor.method],
@@ -70,23 +65,21 @@ async function hitApi(configs) {
         startBalance: report.startBalance.toFixed(2),
         alpha: report.alpha.toFixed(2),
         ...getMoreMetrics(body.roundtrips),
-      }
+      };
     }
 
-    const profitable = report.profit > 0 && report.profit > report.market
+    const profitable = report.profit > 0 && report.profit > report.market;
 
-		if (writecsv===true && report && profitable) {  
-			saveToCsv(result)
-		}
-
-    if (writeToDB === true && report && profitable) {
-
+    if (writecsv === true && report && profitable) {
+      saveToCsv(result);
     }
 
-		return result;
+    return result;
   })
-	.catch((err)=>{
-		throw err
-	});
-	return results;
+    .catch((err) => {
+      throw err;
+    });
+  return results;
 }
+
+hitApi(generatedConfigs);
