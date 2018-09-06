@@ -19,7 +19,7 @@ const getMoreMetrics = (roundtrips) => {
   profitFactor = Math.abs(grossProfit/grossLoss)
   winningPercentage = 100 * wins / roundtrips.length
 
-  return { mostProfitabe, biggestLost, winningPercentage, profitFactor, grossProfit, grossLoss }
+  return { mostProfitabe.toFixed(2), biggestLost.toFixed(2), winningPercentage.toFixed(2), profitFactor.toFixed(2), grossProfit.toFixed(2), grossLoss.toFixed(2) }
 
 }
 

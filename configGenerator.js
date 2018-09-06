@@ -68,8 +68,8 @@ function generateConfigs() {
                 long: randomExt.integer(50,21),
                 signal: randomExt.integer(30,10),
                 thresholds: {  
-                   down: randomExt.integer(0.01,-0.5),
-                   up: randomExt.integer(0.5,0.01),
+                   down: randomExt.float(-0.01,-0.5),
+                   up: randomExt.float(0.5,0.01),
                    persistence: randomExt.integer(9,1),
                 }
               },
