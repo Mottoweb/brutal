@@ -10,9 +10,9 @@ const {
   db,
 } = require('./writers/db');
 
-const writecsv = true;
+const writecsv = false;
 const writeToDB = true;
-const parallelqueries = 1;
+const parallelqueries = 2;
 
 const generatedConfigs = generateConfigs();
 const apiUrl = process.env.URL || 'http://localhost:3000';
