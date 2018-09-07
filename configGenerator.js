@@ -7,21 +7,22 @@ function generateConfigs() {
   const candleSizes = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
   const historySizes = [20, 30, 50, 100];
   const tradingPairs = [
-    ["poloniex","USDT","DASH"],
-    ["poloniex","USDT","BCH"],
-    // ["poloniex","USDT","ETC"],
-    // ["poloniex","USDT","NXT"],
-    // ["poloniex","USDT","LTC"],
-    // ["poloniex","USDT","ETH"],
-    // ["poloniex","USDT","XMR"],
-    // ["poloniex","USDT","REP"],
-    // ["poloniex","USDT","STR"],
-    // ["poloniex","ETH","BCH"],
-    // ["poloniex","ETH","ETC"],
-    // ["poloniex","ETH","CVC"],
-    // ["poloniex","BTC","XMR"],
-    // ["poloniex","BTC","DOGE"],
-    // ["poloniex","BTC","ETH"],
+    ['poloniex', 'BTC', 'DASH'],
+    ['poloniex', 'BTC', 'ETH'],
+    ['poloniex', 'BTC', 'LTC'],
+    ['poloniex', 'BTC', 'STR'],
+    ['poloniex', 'BTC', 'XMR'],
+    ['poloniex', 'ETH', 'BCH'],
+    ['poloniex', 'ETH', 'ETC'],
+    ['poloniex', 'USDT', 'BCH'],
+    ['poloniex', 'USDT', 'DASH'],
+    ['poloniex', 'USDT', 'ETC'],
+    ['poloniex', 'USDT', 'ETH'],
+    ['poloniex', 'USDT', 'LTC'],
+    ['poloniex', 'USDT', 'NXT'],
+    ['poloniex', 'USDT', 'REP'],
+    ['poloniex', 'USDT', 'STR'],
+    ['poloniex', 'USDT', 'XMR'],
   ];
 
   const numberofruns = 5;

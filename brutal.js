@@ -78,7 +78,7 @@ async function hitApi(configs) {
       saveToCsv(result);
     }
 
-    if (writeToDB === true && report) {
+    if (writeToDB === true && report && profitable) {
       try {
         console.log('Inserting to DB');
         await handlers.saveResult(result);
