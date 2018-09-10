@@ -1,28 +1,35 @@
 const randomExt = require('random-ext');
 const configFile = require('../gekko/config-backtester.js');
 
-function generateConfigs() {
+function generateConfig(cb) {
+  if (!cb) throw new Error('Callback function for config genererator is not defined');
   const configs = [];
   const config = configFile;
   const candleSizes = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
   const historySizes = [20, 30, 50, 100];
   const tradingPairs = [
-    ['poloniex', 'BTC', 'DASH'],
-    ['poloniex', 'BTC', 'ETH'],
-    ['poloniex', 'BTC', 'LTC'],
-    ['poloniex', 'BTC', 'STR'],
-    ['poloniex', 'BTC', 'XMR'],
-    ['poloniex', 'ETH', 'BCH'],
-    ['poloniex', 'ETH', 'ETC'],
-    ['poloniex', 'USDT', 'BCH'],
-    ['poloniex', 'USDT', 'DASH'],
-    ['poloniex', 'USDT', 'ETC'],
-    ['poloniex', 'USDT', 'ETH'],
-    ['poloniex', 'USDT', 'LTC'],
-    ['poloniex', 'USDT', 'NXT'],
-    ['poloniex', 'USDT', 'REP'],
-    ['poloniex', 'USDT', 'STR'],
-    ['poloniex', 'USDT', 'XMR'],
+    // ['poloniex', 'BTC', 'DASH'],
+    // ['poloniex', 'BTC', 'ETH'],
+    // ['poloniex', 'BTC', 'LTC'],
+    // ['poloniex', 'BTC', 'STR'],
+    // ['poloniex', 'BTC', 'XMR'],
+    // ['poloniex', 'ETH', 'BCH'],
+    // ['poloniex', 'ETH', 'ETC'],
+    // ['poloniex', 'USDT', 'BCH'],
+    // ['poloniex', 'USDT', 'DASH'],
+    // ['poloniex', 'USDT', 'ETC'],
+    // ['poloniex', 'USDT', 'ETH'],
+    // ['poloniex', 'USDT', 'LTC'],
+    // ['poloniex', 'USDT', 'NXT'],
+    // ['poloniex', 'USDT', 'REP'],
+    // ['poloniex', 'USDT', 'STR'],
+    // ['poloniex', 'USDT', 'XMR'],
+    ['binance', 'USDT', 'ONT'],
+    ['binance', 'BTC', 'EOS'],
+    ['binance', 'USDT', 'NEO'],
+    ['binance', 'BTC', 'ONT'],
+    ['binance', 'USDT', 'BCC'],
+    ['binance', 'BTC', 'HOT'],
   ];
 
   const numberofruns = 5;
@@ -41,12 +48,11 @@ function generateConfigs() {
           config.watch.currency = tradingPairs[a][1];
           config.watch.asset = tradingPairs[a][2];
 
-          if (this.baseConfig) delete this.baseConfig;
-          this.baseConfig = {
+          const baseConfig = {
             watch: {
               exchange: config.watch.exchange,
               currency: config.watch.currency,
-              asset: config.watch.asset,               
+              asset: config.watch.asset,
             },
             paperTrader: {
               slippage: config.paperTrader.slippage,
@@ -66,8 +72,8 @@ function generateConfigs() {
             StochRSI: {
               interval: randomExt.integer(20, 1),
               thresholds: {
-                low: randomExt.integer(35, 5),
-                high: randomExt.integer(95, 65),
+                low: randomExt.integer(30, 1),
+                high: randomExt.integer(99, 60),
                 persistence: randomExt.integer(9, 1),
               },
             },
@@ -94,7 +100,7 @@ function generateConfigs() {
             valid: true,
             debug: true,
           };
-          configs.push(this.baseConfig);
+          configs.push(baseConfig);
         }
       }
     }
@@ -102,4 +108,4 @@ function generateConfigs() {
   return configs;
 }
 
-module.exports = generateConfigs;
+module.exports = generateConfig;

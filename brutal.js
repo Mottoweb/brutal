@@ -96,4 +96,6 @@ async function hitApi(configs) {
 
 db.sync().then(() => {
   hitApi(generatedConfigs);
+  console.log('success, exiting');
+  process.exit();
 }).catch(e => console.error(e));
