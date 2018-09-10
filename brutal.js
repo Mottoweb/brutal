@@ -94,8 +94,8 @@ async function hitApi(configs) {
   return results;
 }
 
-db.sync().then(() => {
-  hitApi(generatedConfigs);
+db.sync().then(async () => {
+  await hitApi(generatedConfigs);
   console.log('success, exiting');
   process.exit();
 }).catch(e => console.error(e));
