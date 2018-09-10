@@ -1,8 +1,7 @@
 const randomExt = require('random-ext');
 const configFile = require('../gekko/config-backtester.js');
 
-function generateConfig(cb) {
-  if (!cb) throw new Error('Callback function for config genererator is not defined');
+function generateConfig() {
   const configs = [];
   const config = configFile;
   const candleSizes = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
