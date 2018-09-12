@@ -32,15 +32,14 @@ function generateConfig() {
 
   const numberofruns = 20;
 
-  const strategy = 'bestone';
+  const stratKey = 'bestone';
 
-  const stratConf = require(`./stratConfigs/${strategy}`);
+  const stratConf = require(`./stratConfigs/${stratKey}`);
 
   for (var a = 0, len4 = tradingPairs.length; a < len4; a++) {
     for (var j = 0, len1 = candleSizes.length; j < len1; j++) {
       for (var k = 0, len2 = historySizes.length; k < len2; k++) {
         for (var i = 0, len = numberofruns; i < len; i++) {
-          const stratKey = strategies[0];
           config.tradingAdvisor.method = stratKey;
           config.tradingAdvisor.candleSize = candleSizes[j];
           config.tradingAdvisor.historySize = historySizes[k];
