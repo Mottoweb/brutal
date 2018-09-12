@@ -28,7 +28,6 @@ function generateConfig() {
     ['binance', 'USDT', 'NEO'],
     ['binance', 'BTC', 'ONT'],
     ['binance', 'USDT', 'BCC'],
-    ['binance', 'BTC', 'HOT'],
   ];
 
   const numberofruns = 5;

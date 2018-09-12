@@ -24,10 +24,13 @@
   "homepage": "https://github.com/Mottoweb/brutal#readme",
   "dependencies": {
     "async": "^2.6.1",
+    "axios": "^0.18.0",
     "commander": "^2.17.1",
     "flat": "^4.1.0",
     "fs-extra": "^7.0.0",
     "humanize": "0.0.9",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "nodemailer": "^4.6.8",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",

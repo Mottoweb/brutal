@@ -57,5 +57,8 @@ module.exports = {
   handlers: {
     saveResult,
   },
+  models: {
+    Results,
+  },
   db: sequelize,
 };
