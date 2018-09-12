@@ -25,14 +25,14 @@ function generateConfig() {
     // ['poloniex', 'USDT', 'XMR'],
     ['binance', 'USDT', 'ONT'],
     ['binance', 'BTC', 'EOS'],
-    // ['binance', 'USDT', 'NEO'],
-    // ['binance', 'BTC', 'ONT'],
-    // ['binance', 'USDT', 'BCC'],
+    ['binance', 'USDT', 'NEO'],
+    ['binance', 'BTC', 'ONT'],
+    ['binance', 'USDT', 'BCC'],
   ];
 
   const numberofruns = 20;
 
-  const stratKey = 'StochRSI';
+  const stratKey = 'BBRSI';
 
   const stratConf = require(`./stratConfigs/${stratKey}`);
 
