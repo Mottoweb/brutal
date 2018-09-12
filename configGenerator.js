@@ -32,7 +32,7 @@ function generateConfig() {
 
   const numberofruns = 20;
 
-  const stratKey = 'bestone';
+  const stratKey = 'StochRSI';
 
   const stratConf = require(`./stratConfigs/${stratKey}`);
 
@@ -92,6 +92,7 @@ function generateConfig() {
             valid: true,
             debug: true,
           };
+          // console.log(baseConfig);
           configs.push(baseConfig);
         }
       }
