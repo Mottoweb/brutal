@@ -25,14 +25,14 @@ function generateConfig() {
     // ['poloniex', 'USDT', 'XMR'],
     ['binance', 'USDT', 'ONT'],
     ['binance', 'BTC', 'EOS'],
-    ['binance', 'USDT', 'NEO'],
-    ['binance', 'BTC', 'ONT'],
-    ['binance', 'USDT', 'BCC'],
+    // ['binance', 'USDT', 'NEO'],
+    // ['binance', 'BTC', 'ONT'],
+    // ['binance', 'USDT', 'BCC'],
   ];
 
-  const numberofruns = 5;
+  const numberofruns = 20;
 
-  const strategies = ["StochRSI"];
+  const strategies = ["bestone"];
 
   for (var a = 0, len4 = tradingPairs.length; a < len4; a++) {
     for (var j = 0, len1 = candleSizes.length; j < len1; j++) {
@@ -67,12 +67,34 @@ function generateConfig() {
               candleSize: config.tradingAdvisor.candleSize,
               historySize: config.tradingAdvisor.historySize,
             },
-            StochRSI: {
-              interval: randomExt.integer(20, 1),
+            bestone: {
+              MACD: {
+                optInFastPeriod: randomExt.integer(20, 12),
+                optInSlowPeriod: randomExt.integer(40, 20),
+                optInSignalPeriod: randomExt.integer(12, 1),
+              },
+              EMAshort: {
+                optInTimePeriod: randomExt.integer(15, 1),
+              },
+              EMAlong: {
+                optInTimePeriod: randomExt.integer(30, 15),
+              },
+              STOCH: {
+                optInFastKPeriod: randomExt.integer(12, 1),
+                optInSlowKPeriod: randomExt.integer(12, 1),
+                optInSlowKMAType: randomExt.integer(12, 1),
+                optInSlowDPeriod: randomExt.integer(12, 1),
+                optInSlowDMAType: randomExt.integer(12, 1),
+              },
+              RSI: {
+                optInTimePeriod: randomExt.integer(30, 1),
+              },
               thresholds: {
-                low: randomExt.integer(30, 1),
-                high: randomExt.integer(99, 60),
-                persistence: randomExt.integer(9, 1),
+                RSIhigh: randomExt.integer(40, 1),
+                RSIlow: randomExt.integer(99, 60),
+                MACDhigh: randomExt.float(0.5, 0),
+                MACDlow: randomExt.float(0, -0.5),
+                persistence: randomExt.integer(12, 1),
               },
             },
             backtest: {

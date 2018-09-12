@@ -60,7 +60,7 @@ const getWatchersConfigs = (gekkos, watchers) => {
   const needWatcher = gekkos.filter((gekko) => {
     let filterResult = true;
     if (watchers && watchers.length >= 1) {
-      return watchers.forEach((watcher) => {
+      watchers.forEach((watcher) => {
         filterResult = !_.isEqual(watcher.config.watch, gekko.fullConfig.watch);
         return filterResult;
       });
