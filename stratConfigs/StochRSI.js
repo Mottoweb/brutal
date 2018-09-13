@@ -1,6 +1,6 @@
 const randomExt = require('random-ext');
 
-const config = {
+const config = () => ({
   StochRSI: {
     interval: randomExt.integer(40, 1),
     thresholds: {
@@ -9,6 +9,6 @@ const config = {
       persistence: randomExt.integer(15, 1),
     },
   },
-};
+});
 
 module.exports = config;

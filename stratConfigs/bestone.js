@@ -1,6 +1,6 @@
 const randomExt = require('random-ext');
 
-const bestone = {
+const bestone = () => ({
   bestone: {
     MACD: {
       optInFastPeriod: randomExt.integer(20, 12),
@@ -31,6 +31,6 @@ const bestone = {
       persistence: randomExt.integer(12, 1),
     },
   },
-};
+});
 
 module.exports = bestone;

@@ -1,6 +1,6 @@
 const randomExt = require('random-ext');
 
-const config = {
+const config = () => ({
   BBRSI: {
     interval: randomExt.integer(40, 1),
     thresholds: {
@@ -14,6 +14,6 @@ const config = {
       NbDevDn: randomExt.integer(5, 1),
     },
   },
-};
+});
 
 module.exports = config;

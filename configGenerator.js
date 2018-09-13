@@ -25,13 +25,15 @@ function generateConfig() {
     // ['poloniex', 'USDT', 'XMR'],
     ['binance', 'USDT', 'ONT'],
     ['binance', 'BTC', 'EOS'],
-    // ['binance', 'USDT', 'NEO'],
+    ['binance', 'USDT', 'NEO'],
     // ['binance', 'BTC', 'ONT'],
     // ['binance', 'USDT', 'BCC'],
   ];
 
   const numberofruns = 20;
   const stratKey = 'BBRSI';
+
+  const generateStratConf = require(`./stratConfigs/${stratKey}`);
 
   for (var a = 0, len4 = tradingPairs.length; a < len4; a++) {
     for (var j = 0, len1 = candleSizes.length; j < len1; j++) {
@@ -45,7 +47,7 @@ function generateConfig() {
           config.watch.asset = tradingPairs[a][2];
 
           const baseConfig = {
-            ...require(`./stratConfigs/${stratKey}`),
+            ...generateStratConf(),
             watch: {
               exchange: config.watch.exchange,
               currency: config.watch.currency,
