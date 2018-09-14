@@ -23,11 +23,15 @@ function generateConfig() {
     // ['poloniex', 'USDT', 'REP'],
     // ['poloniex', 'USDT', 'STR'],
     // ['poloniex', 'USDT', 'XMR'],
-    ['binance', 'USDT', 'ONT'],
-    ['binance', 'BTC', 'EOS'],
-    ['binance', 'USDT', 'NEO'],
+    // ['binance', 'USDT', 'ONT'],
+    // ['binance', 'BTC', 'EOS'],
+    // ['binance', 'USDT', 'NEO'],
     // ['binance', 'BTC', 'ONT'],
     // ['binance', 'USDT', 'BCC'],
+    ['binance', 'BTC', 'XRP'],
+    ['binance', 'USDT', 'ADA'],
+    // ['binance', 'USDT', 'ETH'],
+    // ['binance', 'USDT', 'BTC'],
   ];
 
   const numberofruns = 20;
