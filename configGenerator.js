@@ -1,10 +1,12 @@
 
+const randomExt = require('random-ext');
 const configFile = require('../gekko/config-backtester.js');
 
 function generateConfig() {
   const configs = [];
   const config = configFile;
-  const candleSizes = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+  // const candleSizes = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+  const candleSizes = randomExt.integerArray(15, 259, 3);
   const historySizes = [20, 30, 50, 100];
   const tradingPairs = [
     // ['poloniex', 'BTC', 'DASH'],
@@ -30,8 +32,8 @@ function generateConfig() {
     // ['binance', 'USDT', 'BCC'],
     ['binance', 'BTC', 'XRP'],
     ['binance', 'USDT', 'ADA'],
-    // ['binance', 'USDT', 'ETH'],
-    // ['binance', 'USDT', 'BTC'],
+    ['binance', 'USDT', 'ETH'],
+    ['binance', 'USDT', 'BTC'],
   ];
 
   const numberofruns = 20;
