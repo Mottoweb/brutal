@@ -6,38 +6,23 @@ function generateConfig() {
   const configs = [];
   const config = configFile;
   // const candleSizes = [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
-  const candleSizes = randomExt.integerArray(15, 259, 3);
+  const candleSizes = randomExt.integerArray(15, 123, 2);
   const historySizes = [20, 30, 50, 100];
   const tradingPairs = [
-    // ['poloniex', 'BTC', 'DASH'],
-    // ['poloniex', 'BTC', 'ETH'],
-    // ['poloniex', 'BTC', 'LTC'],
-    // ['poloniex', 'BTC', 'STR'],
-    // ['poloniex', 'BTC', 'XMR'],
-    // ['poloniex', 'ETH', 'BCH'],
-    // ['poloniex', 'ETH', 'ETC'],
-    // ['poloniex', 'USDT', 'BCH'],
-    // ['poloniex', 'USDT', 'DASH'],
-    // ['poloniex', 'USDT', 'ETC'],
-    // ['poloniex', 'USDT', 'ETH'],
-    // ['poloniex', 'USDT', 'LTC'],
-    // ['poloniex', 'USDT', 'NXT'],
-    // ['poloniex', 'USDT', 'REP'],
-    // ['poloniex', 'USDT', 'STR'],
-    // ['poloniex', 'USDT', 'XMR'],
-    // ['binance', 'USDT', 'ONT'],
-    // ['binance', 'BTC', 'EOS'],
-    // ['binance', 'USDT', 'NEO'],
-    // ['binance', 'BTC', 'ONT'],
-    // ['binance', 'USDT', 'BCC'],
-    ['binance', 'BTC', 'XRP'],
-    ['binance', 'USDT', 'ADA'],
-    ['binance', 'USDT', 'ETH'],
-    ['binance', 'USDT', 'BTC'],
+    ['binance', 'USDT', 'BCC'],
+    // ['binance', 'BTC', 'XRP'],
+    // ['binance', 'USDT', 'ADA'],
+    // ['binance', 'USDT', 'ETH'],
+    // ['binance', 'USDT', 'BTC'],
+    // ['binance', 'USDT', 'XRP'],
+    // ['binance', 'USDT', 'XLM'],
+    // ['binance', 'BTC', 'XLM'],
+    // ['gdax', 'EUR', 'ETH'],
   ];
 
+
   const numberofruns = 20;
-  const stratKey = 'BBRSI';
+  const stratKey = 'neataptic';
 
   const generateStratConf = require(`./stratConfigs/${stratKey}`);
 
