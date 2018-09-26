@@ -3,7 +3,7 @@ const r = require('random-ext');
 const neataptic = () => ({
   neataptic: {
     hiddenLayers: r.integer(6, 2),
-    lookAheadCandles: r.integer(10, 30),
+    lookAheadCandles: r.integer(30, 10),
     iterations: r.integer(300, 50),
     error: r.float(0.003, 0.0001),
     momentum: r.float(0.03, 0.005),
